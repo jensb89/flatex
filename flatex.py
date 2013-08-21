@@ -34,7 +34,7 @@ with the the relate reference found in that document.
         os.chdir(base_path)
 	#return os.path.join(base_path, relative_ref)
     filePath = os.path.abspath(relative_ref)
-    filePath = filePath + ".tex"
+    #filePath = filePath + ".tex"
     return filePath
 
 def expand_file(base_file):
@@ -46,7 +46,7 @@ referenced file.
     output_lines = [] 
     f = open(base_file, "r")
     for line in f:
-        if is_input(line):
+        if is_input(line) and os.path.splitext(get_input(line))[1] == '.tex':
             current_path = os.path.split(base_file)[0] 
             new_base_file = combine_path(current_path, get_input(line))
             output_lines += expand_file(new_base_file)
